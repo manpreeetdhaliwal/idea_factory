@@ -6,6 +6,29 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Idea.delete_all
+User.delete_all
+
+PASSWORD='supersecret'
+super_user= User.create(
+    first_name: 'Jon',
+    last_name:'Snow',
+    email: 'js@winterfell.gov',
+    password: PASSWORD,
+    # is_admin: true
+)
+10.times do
+    first_name= Faker::Name.first_name 
+    last_name= Faker::Name.last_name 
+    User.create(
+        first_name: first_name,
+        last_name: last_name,
+        email: "#{first_name}.#{last_name}@example.com",
+        password: PASSWORD
+        
+    )
+    end
+    users=User.all
+
 100.times do
     created_at=Faker::Date.backward(days: 365*5)
    i=Idea.create(
@@ -13,7 +36,9 @@ Idea.delete_all
        description: Faker::ChuckNorris.fact,
        
        created_at: created_at,
-       updated_at: created_at)
+       updated_at: created_at,
+       user: users.sample)
 end
 idea=Idea.all
 puts Cowsay.say("Generated #{idea.count} ideas.",:frogs)
+puts Cowsay.say("Generated #{users.count} users.",:beavis)
