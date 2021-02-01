@@ -1,7 +1,10 @@
 <h3><%=@idea.title%></h3>
 <p><%= @idea.description %></p>
 
-
+<small>
+posted by by:
+<%= @idea.user&.full_name || "DELETED" %>
+</small>
 
 <small>
     <%= time_ago_in_words(@idea.created_at)  %> ago
