@@ -7,6 +7,7 @@ class IdeasController < ApplicationController
     end
     def create
         @idea=Idea.new idea_params
+        @idea.user = current_user
         
         if @idea.save
             flash[:notice]="Idea created successfully."
@@ -19,6 +20,8 @@ class IdeasController < ApplicationController
         @ideas = Idea.all.order(created_at: :desc)
     end
     def show
+        @reviews=@idea.reviews.order(created_at: :desc)
+        @review=Review.new
     end
     def edit
     end
@@ -41,5 +44,8 @@ class IdeasController < ApplicationController
     def idea_params
         params.require(:idea).permit(:title, :description)
    
+    end
+    def authorize_user!
+        redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @idea)
     end
 end
