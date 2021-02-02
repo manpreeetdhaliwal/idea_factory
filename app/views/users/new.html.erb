@@ -1,30 +1,37 @@
 <h1>sign up form</h1>
 <%= form_with model: @user, local:true do |f|%>
+    <div class="form-group">
     <% if @user.errors.any? %>
     <p> 
         <%= @user.errors.full_messages.join(', ') %>
     </p>
     <% end %>
-    <div>
+  
     <%= f.label :first_name %>
+    <div class="input-group">
     <%= f.text_field :first_name%>
     </div>
-    <div>
+    
     <%= f.label :last_name %>
+    <div class="input-group">
     <%= f.text_field :last_name %>
     </div>
-    <div>
+    
     <%= f.label :email %>
+    <div class="input-group">
     <%= f.email_field :email %>
     </div>
-    <div>
+    
     <%= f.label :password %>
+    <div class="input-group">
     <%= f.password_field :password %>
     </div>
     <div>
     <%= f.label :password_confirmation %>
+    <div class="input-group">
     <%= f.password_field :password_confirmation %>
     </div>
+    <br>
     <%= f.submit "sign up"%>
-
+</div>
     <% end %>

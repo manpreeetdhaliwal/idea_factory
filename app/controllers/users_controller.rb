@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         # redirect_to root_path, notice: "Logged in!"
         if @user.save
             session[:user_id]=@user.id
-            redirect_to root_path, notice: "Logged in!"
+            redirect_to ideas_path, notice: "Logged in!"
         else
             render :new
         end

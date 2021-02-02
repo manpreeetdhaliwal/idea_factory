@@ -10,7 +10,8 @@ class LikesController < ApplicationController
         else
             flash[:alert]=like.errors.full_messages.join(', ')
         end
-        redirect_to idea_path(idea)
+        # redirect_to idea_path(idea)
+        redirect_to ideas_path
     end
     def destroy
         like = current_user.likes.find params[:id]

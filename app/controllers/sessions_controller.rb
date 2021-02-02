@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
             session[:user_id]=@user.id
             # The 👆🏻'session' is an object usable in a controller that uses cookies to store encrypted data.
             # To sign in a user, we wstore their user_id in the session for later use or retreival
-            redirect_to root_path, notice: 'Logged in'
+            redirect_to ideas_path, notice: 'Logged in'
         else
             flash[:alert]= 'Wrong email or password.'
             render :new
