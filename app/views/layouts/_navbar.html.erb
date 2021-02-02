@@ -1,18 +1,29 @@
-<nav>
-<%= link_to 'Home', root_path  %>
-|
-<%= link_to 'Ideas', ideas_path %>
-|
-<%= link_to 'New Idea', new_idea_path %>
-|
+<nav class="navbar navbar-light container" style="background-color: #808080;">
+
+<div class="float-left">
+<%= link_to '<button type="button" class="btn-lg">Idea Factory</button>'.html_safe, ideas_path  %>
+</div>
+<div class="float-right">
+<div class="float-left">
+
+
 <% if user_signed_in? %>
-        Hello <%= current_user.full_name %> 
-        | 
-        <%= link_to "Logout", session_path, method: :delete,
+        Hello Mr. <%= current_user.full_name %> 
+       
+        <%= link_to "Sign Out", session_path, method: :delete,
         data: {confirm: 'Are you sure you want to log out?'}
          %>
          <% else %>
-         <%= link_to "Login", new_session_path %> |
+         <%= link_to "Login", new_session_path %>
          <%= link_to "Sign Up", new_user_path %>
 <% end %>
+</div>
+<div class='float-right'>
+
+<%= link_to '<button type="button" class="btn-lg">New Idea</button>'.html_safe, new_idea_path  %>
+
+</div>
+<div>
+
 </nav>
+<hr>

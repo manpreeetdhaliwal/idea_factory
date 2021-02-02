@@ -28,6 +28,8 @@ gem 'cancancan', '~> 3.2', '>= 3.2.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'jquery-rails'
 gem 'cowsay'
 gem 'faker'
 group :development, :test do

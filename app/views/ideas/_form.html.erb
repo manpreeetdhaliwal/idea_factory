@@ -1,15 +1,19 @@
 <%= form_with model:@idea, local: true do |form| %>
+    <div class="form-group">
     <% if @idea.errors.present? %>
     <%= @idea.errors.full_messages.join(', ')%>
     <% end %>
     <div>
         <%= form.label :title  %> 
+        <div class="input-group">
         <%= form.text_field :title  %> 
     </div>
     <div>
         <%= form.label :description  %>
+        <div class="input-group">
         <%= form.text_area :description, cols:50 ,rows:5  %>  
     </div>
+    <br>
     <%=form.submit %> 
     
     <% end %>

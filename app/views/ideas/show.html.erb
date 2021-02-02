@@ -1,25 +1,35 @@
+<div class="container p-3 my-3 border">
 <h3><%=@idea.title%></h3>
 <p><%= @idea.description %></p>
 
-<small>
-posted by by:
-<%= @idea.user&.full_name || "DELETED" %>
-</small>
 
-<small>
-    <%= time_ago_in_words(@idea.created_at)  %> ago
+
+<small>posted:
+    <%= time_ago_in_words(@idea.created_at)  %> ago,
 </small>
-<small>Last Edited : <%= time_ago_in_words(@idea.updated_at)  %> ago</small>
+<small>Updated : <%= time_ago_in_words(@idea.updated_at)  %> ago</small>
 <small>
+<p>
     <% if can? :crud, @idea %>
-    <%= link_to("Edit", edit_idea_path(@idea.id))%> | 
+   
+    <%= link_to '<button type="button" class="btn btn-outline-primary">Edit</button>'.html_safe, edit_idea_path(@idea.id)%>  
     <% end %>
     <% if can? :crud, @idea %>
-    <%= link_to("Delete",idea_path(@idea),method: :delete,data:{confirm: "Are you sure ?"})%>
+    
+    <%= link_to '<button type="button" class="btn btn-outline-danger">Delete</button>'.html_safe,idea_path(@idea),method: :delete,data:{confirm: "Are you sure ?"}%>
     <% end %>
 </small>
+<% if @like.present? %>
+        <%= link_to '<button type="button" class="btn btn-outline-success">Liked</button>'.html_safe, like_path(@like),method: :delete  %> 
+        <% else %>  
+        <%= link_to '<button type="button" class="btn btn-outline-info">Like</button>'.html_safe, idea_likes_path(@idea), method: :post  %> 
+        <% end %> 
+            <small>Likes: <%= @idea.likes.count %> </small>
+      </p>  
+      </div>    
 <h3>Give your awesome review  here:</h3>
 <%= form_with model:[@idea,@review],local: true do |form|%>
+    <div class="form-group">
     <ul>
         <% if @review.errors.full_messages.each do |msg|%>
 
@@ -30,28 +40,34 @@ posted by by:
         <% end %>
         <% end %>
     </ul>
+    <div class="input-group">
     <%= form.text_area :body, 
     cols: 50, 
     rows: 5, 
-    placeholder: 'What is your review?'%>
-    <%= form.submit %>
+    placeholder: 'What is your review?',:class=>"form-control input-lg"%>
+    
+    </div>
+    <br>
+    <%= form.submit "Submit", class: "btn btn-outline-primary " %>
+    </div>
 
     <% end %>
 <h3>Reviews:</h3>
-    <% @reviews.each do |review|%>
-    <p>
-    <%= review.body %>
+<div class="container p-3 my-3 border">
+    <% @reviews.each do |review|%>   
     <div>
-    <small>
-    reviewed by:
-    <%= review.user&.full_name || "DELETED" %>
-    </small>
-</div>
+    <h2><%= review.body %></h2>
+    </div>
+    <div>
         <small>
+        By:
+        <%= review.user&.full_name || "DELETED" %>
         <% if can? :crud, review %>
-    <%= link_to "Delete",idea_review_path(@idea,review), method: :delete,data: {confirm: "Are you sure?"} %>
+        <%= link_to "Delete",idea_review_path(@idea,review), method: :delete,data: {confirm: "Are you sure?"} %>
+        </div>
+    
     <% end %>  
     </small>
     <hr>
-    </p>
+    </div>
     <% end %>

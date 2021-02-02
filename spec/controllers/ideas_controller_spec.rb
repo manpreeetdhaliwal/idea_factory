@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe IdeasController, type: :controller do
     describe '#new' do # 👈🏻 describe 'new' starts here 
+    context "with signed in user" do
+        before do
+            session[:user_id]=FactoryBot.create(:user)
+        end
             it 'render the new template' do
             # Given
 
@@ -22,12 +26,17 @@ RSpec.describe IdeasController, type: :controller do
             # assign(:job_past) is available from the 'rail-controller-testing'. this allows you to grab an instance varaibale, it takes symbol(:job_post)- the name of instance varaible
             # All models are available to controllers 
             end 
+        end
             
     end# 👈🏻 describe 'new' ends  here 
     describe '#create' do
         def valid_request
              post(:create, params:{idea: FactoryBot.attributes_for(:idea)})
         end
+        context 'with user signed in' do
+            before do
+                session[:user_id]=FactoryBot.create(:user)
+            end
         context " with valid parameter " do # 👈🏻 Context Valid Parameters - Start
             it 'creates a idea in the database' do
             # Given
@@ -67,7 +76,18 @@ RSpec.describe IdeasController, type: :controller do
             expect(response).to render_template(:new)
             end
         end
+    end #👈🏻 context 'with user signed in' ends here
+    context 'with user not signed in'do
+    it 'should redirect to sign in page' do
+        #given
+        # User is not signed 
+        #when
+        valid_request
+        #then
+        expect(response).to redirect_to(new_session_path)
     end
-
+    end
+    end# 👈🏻 describe 'create' ends here 
 
 end
+

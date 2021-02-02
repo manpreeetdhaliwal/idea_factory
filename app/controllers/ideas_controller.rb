@@ -18,10 +18,12 @@ class IdeasController < ApplicationController
     end
     def index
         @ideas = Idea.all.order(created_at: :desc)
+        
     end
     def show
         @reviews=@idea.reviews.order(created_at: :desc)
         @review=Review.new
+        @like=@idea.likes.find_by(user: current_user)
     end
     def edit
     end

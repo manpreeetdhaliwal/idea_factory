@@ -42,7 +42,7 @@ class Ability
     can(:crud,Review) do |review|
       user==review.user
     end
-    can(:like, Idea) do idea|
+    can(:like, Idea) do |idea|
       user.persisted? && idea.user != user
       # user.persisted? check if user is saved in a db or not
       # question.user != user . Do not allow a user to like hi/her own question
